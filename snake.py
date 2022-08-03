@@ -2,11 +2,13 @@ from random import randint
 import os
 from pynput import keyboard
 from pynput.keyboard import Key
+from pynput.keyboard import KeyCode
 from time import sleep
 import sys
 # 12x16
 
 def on_press(key):
+    #if not paused:
     if key == Key.right:
         return right()
     elif key == Key.left:
@@ -15,8 +17,23 @@ def on_press(key):
         return up()
     elif key == Key.down:
         return down()
+##    elif key == KeyCode(char = 'p'):
+##        print('foo\n'*3)
+##        return pause()
     else:
         return True
+##    if key == KeyCode(char = 'p'):
+##        print('bar\n'*3)
+##        return pause()
+
+def pause():
+    global paused
+    if paused:
+        paused = False
+        return True
+    else:
+        paused = True
+        return False
 
 def up():
     global di
@@ -237,6 +254,9 @@ print(r)
 
 listener = keyboard.Listener(on_press=on_press)
 listener.start()
-while not paused:
-    move()
+while True:
+
+    while not paused:
+        move()
+
 input('Press Enter to continue . . . ')
