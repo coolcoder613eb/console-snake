@@ -35,6 +35,19 @@ def pause():
         paused = True
         return False
 
+def cut():
+    global cutthere
+    o = int((len(snake))/2)
+    for k in range(o):
+        snake.pop(0)
+    cutthere = False
+    scissor = [360,360]
+
+def sci():
+    global scissor, cutthere
+    cutthere = True
+    scissor = [randint(0,11),randint(0,11)]
+
 def up():
     global di
     if di == 'right' or di == 'left':
@@ -105,9 +118,14 @@ def move():
         if x == apple:
             app()
             score += 1
+            if (score % 6) == 0:
+                print('a\n'*1000)
+                sci()
             scorev = 'Score: '+str(score)
         else:
             snake.pop(0)
+        if x == scissor:
+                    cut()
             
     if di =='right':
         if num[1] != 0:
@@ -120,9 +138,14 @@ def move():
         if x == apple:
             app()
             score += 1
+            if (score % 6) == 0:
+                print('a\n'*1000)
+                sci()
             scorev = 'Score: '+str(score)
         else:
             snake.pop(0)
+        if x == scissor:
+                    cut()
     if di =='up':
         if num[0] != 0:
             num[0] -= 1
@@ -134,9 +157,14 @@ def move():
         if x == apple:
             app()
             score += 1
+            if (score % 6) == 0:
+                print('a\n'*1000)
+                sci()
             scorev = 'Score: '+str(score)
         else:
             snake.pop(0)
+        if x == scissor:
+                    cut()
     if di =='down':
         if num[0] != 15:
             num[0] += 1
@@ -148,9 +176,14 @@ def move():
         if x == apple:
             app()
             score += 1
+            if (score % 6) == 0:
+                print('a\n'*1000)
+                sci()
             scorev = 'Score: '+str(score)
         else:
             snake.pop(0)
+        if x == scissor:
+                    cut()
     refresh()
     check()
     sleep(0.4)
@@ -181,6 +214,8 @@ def refresh():
 
         
     rows[apple[0]][apple[1]] = a
+    if cutthere:
+        rows[scissor[0]][scissor[1]] = c
 
     print(scorev)
     print(h*(len(rows[0])+2))
@@ -202,7 +237,7 @@ r = "\u001b[0m"
 g = "\u001b[90m"
 p = r+'+ '
 c = g+'V '
-p = c
+p = p
 
 rows = [[p,p,p,p,p,p,p,p,p,p,p,p],
         [p,p,p,p,p,p,p,p,p,p,p,p],
@@ -223,7 +258,8 @@ rows = [[p,p,p,p,p,p,p,p,p,p,p,p],
 
 
 
-
+cutthere = False
+scissor = [360,360]
 snake = []
 snake.append([6,8]); snake.append([5,8])
 apple = [randint(0,11),randint(0,11)]
