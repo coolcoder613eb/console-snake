@@ -54,10 +54,11 @@ def left():
 
 def check():
     x = [num[0],num[1]]
-    for i in snake:
-        if i != snake[len(snake)-1]:
-            if x == i:
-                gameover()
+    n = snake.pop()
+    snake.append(n)
+    for i in range(len(snake)-2):
+        if x == snake[i]:
+            gameover()
     listener = keyboard.Listener(on_press=on_press)
     listener.start()
 
@@ -181,7 +182,10 @@ s = "\u001b[32mo "
 a = "\u001b[31mό "
 h = "\u001b[34m# "
 r = "\u001b[0m"
+g = "\u001b[90m"
 p = r+'+ '
+c = g+'V '
+p = c
 
 rows = [[p,p,p,p,p,p,p,p,p,p,p,p],
         [p,p,p,p,p,p,p,p,p,p,p,p],
