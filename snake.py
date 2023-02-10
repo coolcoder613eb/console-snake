@@ -83,6 +83,7 @@ def left():
         return True
 
 def check():
+    global listener
     x = [num[0],num[1]]
     n = snake.pop()
     snake.append(n)
